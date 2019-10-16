@@ -9,3 +9,4 @@ By using flavors, launcher icon, name and other variables can be organized speci
 [Link 1](https://www.journaldev.com/21533/android-build-types-product-flavors)
 [Link 2](https://developer.android.com/studio/build/build-variants)
 [Link 3](https://www.androidauthority.com/building-multiple-flavors-android-app-706436/)
+.
