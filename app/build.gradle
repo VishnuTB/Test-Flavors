@@ -47,16 +47,18 @@ android {
         alpha_release {
             dimension = 'default'
             applicationId = 'com.area51.alpha_release'
-            versionCode = 1
-            versionName = '0.0.1'
+            manifestPlaceholders = [ appName: "Alpha Release" ]
+            versionCode = 10002
+            versionName = '0.0.2'
             targetSdkVersion 29
             signingConfig signingConfigs.release
         }
         beta_release {
             dimension = 'default'
             applicationId = 'com.area51.beta_release'
-            versionCode = 1
-            versionName = '0.0.2'
+            manifestPlaceholders = [ appName: "Beta Release" ]
+            versionCode = 10003
+            versionName = '0.0.3'
             targetSdkVersion 29
             signingConfig signingConfigs.release
         }
