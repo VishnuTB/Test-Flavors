@@ -1,17 +1,19 @@
 package com.area51.testflavors;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.analytics.FirebaseAnalytics;
+
+import java.util.Random;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity
         implements View.OnClickListener {
 
-    private FirebaseAnalytics mFirebaseAnalytics;
+    private AnalyticsManager analyicsManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,31 +23,39 @@ public class MainActivity extends AppCompatActivity
         findViewById(R.id.fabShow)
                 .setOnClickListener(this);
 
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-        Bundle bundle = new Bundle();
-        bundle.putString("SCREEN_NAME", MainActivity.class.getName());
-        bundle.putString("APP_NAME", BuildConfig.FLAVOR);
-        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle);
-        mFirebaseAnalytics.setUserProperty("user_name", "John Doe");
+        analyicsManager = new AnalyticsManager(this);
+
+        findViewById(R.id.imageView)
+                .setOnClickListener(this);
+
+        findViewById(R.id.textViewMain)
+                .setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.fabShow) {
-            Snackbar.make(findViewById(R.id.mainActivityParent), "Flavour : " + BuildConfig.FLAVOR + " Type : " + BuildConfig.BUILD_TYPE, Snackbar.LENGTH_LONG)
-                    .show();
-            Bundle bundle = new Bundle();
-            bundle.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "FAB");
-            bundle.putString(FirebaseAnalytics.Event.VIEW_ITEM, "SnackBar");
-            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        switch (v.getId()) {
+            case R.id.fabShow:
+                Snackbar.make(findViewById(R.id.mainActivityParent), "Flavour : " + BuildConfig.FLAVOR + " Type : " + BuildConfig.BUILD_TYPE, Snackbar.LENGTH_LONG)
+                        .show();
+                analyicsManager.sendEvent(AnalyticsManager.ACTION_CLICK, "FAB", "Show Snackbar");
+                break;
+            case R.id.imageView:
+                Random random = new Random();
+                analyicsManager.sendEvent(AnalyticsManager.ACTION_CLICK, "Image", "OpenImage : " + random.nextInt());
+                break;
+            case R.id.textViewMain:
+                analyicsManager.sendEvent(AnalyticsManager.ACTION_OPEN_ACTIVITY, "TextView", "Open Second Activity");
+                startActivity(new Intent(MainActivity.this, SecondActivity.class));
+                break;
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mFirebaseAnalytics.setCurrentScreen(this, BuildConfig.FLAVOR, null);
+        analyicsManager.setScreen("MainActivity");
     }
 
 }

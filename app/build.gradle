@@ -25,18 +25,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
         }
-//        debug {
-//            applicationIdSuffix ".debug"
-//            versionNameSuffix "-debug"
-//            signingConfig signingConfigs.debug
-//            minifyEnabled = false
-//        }
-//        beta {
-//            applicationIdSuffix ".beta"
-//            versionNameSuffix "-beta"
-//            signingConfig signingConfigs.release
-//            minifyEnabled = true
-//        }
     }
     compileOptions {
         sourceCompatibility = 1.8
@@ -44,12 +32,12 @@ android {
     }
     flavorDimensions 'default'
     productFlavors {
-        alpha_release {
+        flavors_release {
             dimension = 'default'
             applicationId = 'com.area51.testflavors'
-            manifestPlaceholders = [appName: "Alpha Release"]
+            manifestPlaceholders = [appName: "Flavors Release"]
             versionCode = 10003
-            versionName = '0.0.3'
+            versionName = '0.0.5'
             targetSdkVersion 29
             signingConfig signingConfigs.release
         }
@@ -58,7 +46,7 @@ android {
             applicationId = 'com.area51.beta_release'
             manifestPlaceholders = [appName: "Beta Release"]
             versionCode = 10004
-            versionName = '0.0.4'
+            versionName = '0.0.6'
             targetSdkVersion 29
             signingConfig signingConfigs.release
         }

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Test Flavors</string>
+    <string name="app_name">Flavors Release</string>
+    <string name="text.this_is_the_second_screen">This is the second screen</string>
 </resources>
